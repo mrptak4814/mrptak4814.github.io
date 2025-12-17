@@ -7,14 +7,16 @@ body, html {
     font-family: 'Lato', sans-serif;
     color: #333;       /* Dark charcoal text */
     background-color: #ffffff; /* White background */
-    overflow-x: hidden;
+    overflow-x: hidden; /* Prevents side-scroll glitches */
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%; /* Prevents iOS text inflation */
 }
 
 h1, h2, h3, h4 {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
-    color: #000; /* Pure black headers */
+    color: #000;
+    line-height: 1.2;
 }
 
 p {
@@ -33,7 +35,7 @@ a:hover {
 }
 
 /* =========================================
-   2. NAVIGATION (Shared Styles)
+   2. NAVIGATION
    ========================================= */
 nav ul {
     list-style: none;
@@ -56,8 +58,7 @@ nav a {
    3. HEADERS
    ========================================= */
 
-/* Immersive Header (Used on All Pages now) */
-/* Sits transparently over dark images */
+/* Immersive Header (Transparent) */
 .immersive-header {
     position: absolute;
     top: 0;
@@ -68,7 +69,7 @@ nav a {
 }
 
 .immersive-header nav a {
-    color: rgba(255,255,255,0.9); /* White text */
+    color: rgba(255,255,255,0.9);
     text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 
@@ -76,49 +77,6 @@ nav a {
 .immersive-header nav a.active {
     color: #ffffff;
     border-bottom: 1px solid #fff;
-}
-
-/* Standard Header (Legacy/Backup) */
-.main-header {
-    padding-top: 60px;
-    padding-bottom: 20px;
-    text-align: center;
-    background: #fff;
-}
-
-.main-header h1 {
-    font-size: 3rem;
-    margin: 0;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #000;
-}
-
-.tagline {
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-    color: #666; 
-    margin-top: 10px;
-    text-transform: uppercase;
-}
-
-.main-header nav {
-    margin-top: 40px;
-    margin-bottom: 60px;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee; 
-    padding: 15px 0;
-}
-
-.main-header nav a {
-    color: #555;
-}
-
-.main-header nav a:hover, 
-.main-header nav a.active {
-    color: #000;
-    font-weight: bold;
-    border-bottom: 1px solid #000;
 }
 
 /* =========================================
@@ -137,18 +95,26 @@ nav a {
     background-color: #000;
 }
 
-.hero-immersive::before {
+/* Shared Hero pseudo-element properties */
+.hero-immersive::before,
+.media-hero::before,
+.sub-hero::before {
     content: '';
-    position: fixed;
+    position: absolute; /* Changed from fixed to absolute for better stability */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    /* Dark gradient overlay */
-    background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('hero.jpg');
     background-size: cover;
     background-position: center top; 
     z-index: -1;
+    /* This creates the parallax effect on Desktop */
+    background-attachment: fixed; 
+}
+
+/* Specific Image for Home */
+.hero-immersive::before {
+    background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('hero.jpg');
     transition: filter 1.2s ease, transform 1.2s ease;
     will-change: filter, transform;
 }
@@ -178,7 +144,6 @@ nav a {
     transform: scale(1.05);
 }
 
-/* The Reveal Section Wrapper */
 .about-reveal {
     background-color: transparent; 
     padding: 150px 20px 100px 20px;
@@ -187,7 +152,6 @@ nav a {
     min-height: 60vh;
 }
 
-/* The Frosted Content Box */
 .profile-container {
     display: flex;
     flex-direction: row; 
@@ -238,7 +202,7 @@ nav a {
 }
 
 /* =========================================
-   5. MEDIA PAGE (Cinema + Gallery)
+   5. MEDIA PAGE
    ========================================= */
 .media-hero {
     position: relative;
@@ -254,17 +218,7 @@ nav a {
 }
 
 .media-hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('hero.jpg');
-    background-size: cover;
-    background-position: center top;
-    z-index: -1;
-    background-attachment: fixed; 
 }
 
 .media-hero-content {
@@ -290,14 +244,14 @@ nav a {
     border: 1px solid rgba(255,255,255,0.2);
 }
 
-.video-wrapper {
+.video-wrapper, .video-container {
     position: relative;
-    padding-bottom: 56.25%;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
     height: 0;
     background: #000;
 }
 
-.video-wrapper iframe {
+.video-wrapper iframe, .video-container iframe {
     position: absolute;
     top: 0;
     left: 0;
@@ -337,33 +291,13 @@ nav a {
     gap: 60px;
 }
 
-.media-item {
-    text-align: center;
-}
-
-.media-item h3 {
-    margin-top: 20px;
-    font-size: 1.2rem;
-    color: #000;
-}
+.media-item { text-align: center; }
+.media-item h3 { margin-top: 20px; font-size: 1.2rem; color: #000; }
 
 .video-container {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-    background: #000;
     border-radius: 4px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
-}
-
-.video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
 }
 
 .media-item:hover .video-container {
@@ -373,10 +307,9 @@ nav a {
 /* =========================================
    6. SUB-PAGE HERO (Resume & Contact)
    ========================================= */
-/* Similar to Media Hero, but shorter so content is visible sooner */
 .sub-hero {
     position: relative;
-    min-height: 50vh; /* Shorter than the 90vh Media header */
+    min-height: 50vh; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -388,18 +321,7 @@ nav a {
 }
 
 .sub-hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* Same background image as Home/Media for consistency */
     background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('hero.jpg');
-    background-size: cover;
-    background-position: center top;
-    z-index: -1;
-    background-attachment: fixed; 
 }
 
 .sub-hero-content h1 {
@@ -415,7 +337,6 @@ nav a {
     color: rgba(255,255,255,0.9);
 }
 
-/* Wrapper for content below the hero on sub-pages */
 .page-content-wrapper {
     padding-top: 80px;
     background-color: #fff;
@@ -424,7 +345,7 @@ nav a {
 }
 
 /* =========================================
-   7. CONTACT PAGE STYLES
+   7. CONTACT PAGE
    ========================================= */
 .contact-buttons {
     display: flex;
@@ -443,12 +364,7 @@ nav a {
     font-weight: bold;
     color: white;
 }
-
-.btn-social:hover {
-    transform: translateY(-2px);
-    opacity: 0.9;
-}
-
+.btn-social:hover { transform: translateY(-2px); opacity: 0.9; }
 .btn-social.email { background-color: #333; }
 .btn-social.youtube { background-color: #FF0000; }
 .btn-social.linkedin { background-color: #0077B5; }
@@ -478,11 +394,6 @@ input[type="email"], input[type="text"], input[type="tel"], textarea {
     color: #333;
 }
 
-input:focus, textarea:focus {
-    border-color: #333;
-    outline: none;
-}
-
 .btn-submit {
     display: block;
     width: 100%;
@@ -495,11 +406,51 @@ input:focus, textarea:focus {
     margin-top: 10px;
     letter-spacing: 1px;
 }
-
 .btn-submit:hover { background-color: #333; }
 
 /* =========================================
-   8. STANDARD LAYOUT UTILITIES
+   8. RESUME PAGE
+   ========================================= */
+.download-bar {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.download-bar a { text-decoration: underline; color: #555; }
+
+.pdf-viewer-container {
+    width: 100%;
+    max-width: 850px; 
+    margin: 0 auto; 
+    height: 1100px; 
+    background-color: #fff; 
+    border: none;
+    box-shadow: none;
+    display: block;
+}
+
+.headshot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    justify-content: center;
+}
+
+.headshot-item { text-align: center; }
+.headshot-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    display: block;
+}
+.headshot-item:hover img { transform: scale(1.02); }
+
+/* =========================================
+   9. UTILITIES & FOOTER
    ========================================= */
 .content-section {
     max-width: 900px;
@@ -515,9 +466,6 @@ input:focus, textarea:focus {
     max-width: 200px;
 }
 
-/* =========================================
-   9. FOOTER
-   ========================================= */
 footer {
     padding: 40px;
     background-color: #f4f4f4;
@@ -529,106 +477,57 @@ footer {
 }
 
 /* =========================================
-   10. MOBILE RESPONSIVENESS
+   10. MOBILE RESPONSIVENESS (The Critical Fixes)
    ========================================= */
 @media (max-width: 768px) {
+    
+    /* BACKGROUND FIX: Turn off fixed scroll on phones */
+    /* Also darkens overlay significantly so text is readable */
+    .hero-immersive::before, 
+    .media-hero::before, 
+    .sub-hero::before {
+        background-attachment: scroll; /* Stops zoom glitch */
+        background-position: center center;
+        background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('hero.jpg');
+    }
+
+    /* TYPOGRAPHY: Shrink massive headers */
     .hero-content h1, 
-    .media-hero-content h1,
-    .sub-hero-content h1 { 
-        font-size: 2.5rem; 
+    .media-hero-content h1, 
+    .sub-hero-content h1 {
+        font-size: 2.2rem; /* Much smaller than 4rem */
+        padding: 0 10px;
     }
-    
-    .profile-container { 
-        flex-direction: column; 
-        text-align: center; 
-        padding: 30px; 
+
+    /* NAVIGATION: Stack links vertically */
+    .immersive-header { position: relative; background: #000; }
+    .immersive-header nav li {
+        display: block;
+        margin: 10px 0;
     }
-    
-    .bio-text { text-align: left; }
-    
-    .media-grid { grid-template-columns: 1fr; }
-    
-    .immersive-header nav li, 
-    .main-header nav li { 
-        margin: 0 10px; 
-        display: block; 
-        margin-bottom: 10px;
+
+    /* PROFILE: Stack image and bio */
+    .profile-container {
+        flex-direction: column;
+        padding: 30px 20px;
+        width: auto;
     }
-}
+    .headshot-placeholder img { width: 100%; max-width: 300px; margin: 0 auto; }
+    .bio-text { text-align: left; font-size: 1rem; }
+    .about-reveal { padding-top: 50px; }
 
-/* =========================================
-   11. RESUME PAGE SPECIFICS
-   ========================================= */
+    /* MEDIA PAGE */
+    .media-grid { grid-template-columns: 1fr; gap: 40px; }
 
-/* Download Link Styling */
-.download-bar {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 0.9rem;
-    color: #888;
-}
-
-.download-bar a {
-    text-decoration: underline;
-    color: #555;
-}
-
-/* PDF Viewer Styling - Seamless "Paper" Look */
-.pdf-viewer-container {
-    width: 100%;
-    max-width: 850px; 
-    margin: 0 auto; 
+    /* RESUME PAGE */
+    /* Shorten the PDF viewer height so it doesn't take forever to scroll */
+    .pdf-viewer-container { height: 500px; border: 1px solid #eee; }
     
-    /* Height matches approx aspect ratio of a letter page to minimize grey bars */
-    height: 1100px; 
+    /* CONTACT PAGE */
+    .form-container { padding: 20px; }
     
-    /* Pure white background to blend with page */
-    background-color: #fff; 
-    
-    /* REMOVED borders and shadows for a flat, seamless look */
-    border: none;
-    box-shadow: none;
-    
-    display: block;
-}
-
-/* Headshots Grid */
-.section-title {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 50px;
-    color: #000;
-}
-
-.headshot-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 40px;
-    justify-content: center;
-}
-
-.headshot-item {
-    text-align: center;
-}
-
-.headshot-item img {
-    width: 100%;
-    height: auto;
-    border-radius: 4px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-    display: block;
-}
-
-.headshot-item:hover img {
-    transform: scale(1.02);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .pdf-viewer-container {
-        height: 500px;
-        /* On mobile, we might want a thin border just to show where it ends */
-        border: 1px solid #eee; 
+    /* INPUTS: Prevent iOS Zoom */
+    input[type="text"], input[type="email"], input[type="tel"], textarea {
+        font-size: 16px; /* Critical for iOS form behavior */
     }
 }
