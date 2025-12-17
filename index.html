@@ -3,37 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Personal Website</title>
+    <title>Caleb | Home</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <header>
+    <header class="immersive-header">
         <nav>
             <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="index.html" class="active">About Caleb</a></li>
+                <li><a href="resume.html">Resume & Headshots</a></li>
+                <li><a href="media.html">Media</a></li>
+                <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <main>
-        <section id="about">
-            <h1>Hello, I'm [Your Name]</h1>
-            <p>Welcome to my corner of the internet. I am learning to build websites.</p>
-        </section>
+    <section class="hero-immersive" id="hero">
+        <div class="hero-content">
+            <h1>Caleb [Last Name]</h1>
+            <p class="tagline-hero">PROFESSIONAL TITLE / SPECIALTY</p>
+        </div>
+    </section>
 
-        <section id="projects">
-            <h2>My Work</h2>
-            <p>Here is where I will link my future projects.</p>
-        </section>
-    </main>
+    <section class="about-reveal" id="reveal">
+        <div class="content-section">
+            <div class="profile-container">
+                <div class="headshot-placeholder">
+                    <img src="headshot.jpg" alt="Caleb Headshot">
+                    <p class="caption">Photo credit: Photographer Name</p>
+                </div>
+                <div class="bio-text">
+                    <h2>Hello.</h2>
+                    <p>Caleb is a professional [Job Title] based in [City]. He has worked with [Company A, Company B] and specializes in [Specialty].</p>
+                    <p>With a passion for storytelling and a commitment to the craft, Caleb brings energy and precision to every performance.</p> 
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <footer id="contact">
-        <p>Contact me at: <a href="mailto:email@example.com">email@example.com</a></p>
-        <p>&copy; 2025 My Website</p>
+    <footer>
+        <p>&copy; 2025 Caleb [Last Name].</p>
     </footer>
+
+    <script>
+        // Select the elements we need to watch and manipulate
+        const heroSection = document.getElementById('hero');
+        const revealSection = document.getElementById('reveal');
+
+        // Create an observer that watches for when the bio section enters the screen
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                // If the bio section is even slightly visible (isIntersecting)...
+                if (entry.isIntersecting) {
+                    // Add the 'scrolled-state' class to the hero
+                    heroSection.classList.add('scrolled-state');
+                } else {
+                    // Otherwise remove it (if you scroll back up)
+                    heroSection.classList.remove('scrolled-state');
+                }
+            });
+        }, { threshold: 0.1 }); // Trigger when 10% of the bio section is visible
+
+        // Start watching the reveal section
+        observer.observe(revealSection);
+    </script>
 
 </body>
 </html>
