@@ -1,0 +1,62 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /* General Page Styling */\
+body \{\
+    font-family: Arial, sans-serif;\
+    line-height: 1.6;\
+    margin: 0;\
+    padding: 0;\
+    color: #333;\
+    background-color: #f4f4f4;\
+\}\
+\
+/* Header & Navigation */\
+header \{\
+    background: #35424a;\
+    color: #ffffff;\
+    padding: 20px 0;\
+    text-align: center;\
+\}\
+\
+header ul \{\
+    padding: 0;\
+    list-style: none;\
+\}\
+\
+header li \{\
+    display: inline;\
+    margin: 0 20px;\
+\}\
+\
+header a \{\
+    color: #ffffff;\
+    text-decoration: none;\
+    font-weight: bold;\
+\}\
+\
+/* Main Content */\
+main \{\
+    padding: 20px;\
+    max-width: 800px;\
+    margin: auto; /* Centers the content */\
+    background: white;\
+    min-height: 400px; /* Ensures page isn't too short */\
+\}\
+\
+/* Footer */\
+footer \{\
+    text-align: center;\
+    padding: 20px;\
+    background: #35424a;\
+    color: white;\
+    margin-top: 20px;\
+\}\
+\
+footer a \{\
+    color: #e8491d;\
+\}}
