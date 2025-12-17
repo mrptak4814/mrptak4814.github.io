@@ -482,20 +482,25 @@ footer {
 @media (max-width: 768px) {
     
     /* BACKGROUND FIX: Turn off fixed scroll on phones */
-    /* Also darkens overlay significantly so text is readable */
+    /* UPDATED: Changed position to 'center top' to prevent jumping between pages */
     .hero-immersive::before, 
     .media-hero::before, 
     .sub-hero::before {
         background-attachment: scroll; /* Stops zoom glitch */
-        background-position: center center;
+        
+        /* THIS IS THE FIX FOR THE JUMP: */
+        /* Anchors image to the top edge so it never shifts when page height changes */
+        background-position: center top; 
+        
         background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('hero.jpg');
+        background-size: cover;
     }
 
     /* TYPOGRAPHY: Shrink massive headers */
     .hero-content h1, 
     .media-hero-content h1, 
     .sub-hero-content h1 {
-        font-size: 2.2rem; /* Much smaller than 4rem */
+        font-size: 2.2rem; 
         padding: 0 10px;
     }
 
@@ -520,7 +525,6 @@ footer {
     .media-grid { grid-template-columns: 1fr; gap: 40px; }
 
     /* RESUME PAGE */
-    /* Shorten the PDF viewer height so it doesn't take forever to scroll */
     .pdf-viewer-container { height: 500px; border: 1px solid #eee; }
     
     /* CONTACT PAGE */
@@ -528,6 +532,6 @@ footer {
     
     /* INPUTS: Prevent iOS Zoom */
     input[type="text"], input[type="email"], input[type="tel"], textarea {
-        font-size: 16px; /* Critical for iOS form behavior */
+        font-size: 16px; 
     }
 }
