@@ -5,11 +5,11 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: 'Lato', sans-serif;
-    color: #333;       /* Dark charcoal text */
-    background-color: #ffffff; /* White background */
-    overflow-x: hidden; /* Prevents side-scroll glitches */
+    color: #333;
+    background-color: #ffffff;
+    overflow-x: hidden;
     scroll-behavior: smooth;
-    -webkit-text-size-adjust: 100%; /* Prevents iOS text inflation */
+    -webkit-text-size-adjust: 100%;
 }
 
 h1, h2, h3, h4 {
@@ -57,8 +57,6 @@ nav a {
 /* =========================================
    3. HEADERS
    ========================================= */
-
-/* Immersive Header (Transparent) */
 .immersive-header {
     position: absolute;
     top: 0;
@@ -80,7 +78,7 @@ nav a {
 }
 
 /* =========================================
-   4. HOME PAGE: HERO & REVEAL
+   4. HOME PAGE
    ========================================= */
 .hero-immersive {
     position: relative;
@@ -90,17 +88,17 @@ nav a {
     align-items: center;
     text-align: center;
     color: white; 
-    overflow: hidden;
+    overflow: hidden; /* Ensures background doesn't spill */
     z-index: 1;
     background-color: #000;
 }
 
-/* Shared Hero pseudo-element properties */
+/* Shared Background Logic */
 .hero-immersive::before,
 .media-hero::before,
 .sub-hero::before {
     content: '';
-    position: absolute; /* Changed from fixed to absolute for better stability */
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -108,15 +106,14 @@ nav a {
     background-size: cover;
     background-position: center top; 
     z-index: -1;
-    /* This creates the parallax effect on Desktop */
-    background-attachment: fixed; 
+    background-attachment: fixed; /* Desktop Parallax */
+    will-change: transform;
 }
 
-/* Specific Image for Home */
+/* Home Page Image */
 .hero-immersive::before {
     background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('hero.jpg');
     transition: filter 1.2s ease, transform 1.2s ease;
-    will-change: filter, transform;
 }
 
 .hero-content h1 {
@@ -138,7 +135,6 @@ nav a {
     color: #fff;
 }
 
-/* The Reveal State (Blurred Background) */
 .hero-immersive.scrolled-state::before {
     filter: blur(20px) brightness(0.9);
     transform: scale(1.05);
@@ -167,10 +163,7 @@ nav a {
     box-shadow: 0 20px 50px rgba(0,0,0,0.15);
 }
 
-.headshot-placeholder {
-    flex-shrink: 0;
-}
-
+.headshot-placeholder { flex-shrink: 0; }
 .headshot-placeholder img {
     width: 300px; 
     height: auto;
@@ -193,13 +186,7 @@ nav a {
     line-height: 1.9;
     font-size: 1.05rem;
 }
-
-.bio-text h2 {
-    font-size: 2.5rem;
-    margin-top: 0;
-    margin-bottom: 20px;
-    color: #000;
-}
+.bio-text h2 { font-size: 2.5rem; margin-top: 0; margin-bottom: 20px; color: #000; }
 
 /* =========================================
    5. MEDIA PAGE
@@ -215,6 +202,7 @@ nav a {
     padding-top: 80px;
     background-color: #000;
     z-index: 1;
+    overflow: hidden; /* CRITICAL: Crops the "100vh" pseudo element */
 }
 
 .media-hero::before {
@@ -226,7 +214,6 @@ nav a {
     max-width: 900px;
     padding: 20px;
 }
-
 .media-hero-content h1 {
     font-size: 3.5rem;
     margin-bottom: 10px;
@@ -246,11 +233,10 @@ nav a {
 
 .video-wrapper, .video-container {
     position: relative;
-    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    padding-bottom: 56.25%;
     height: 0;
     background: #000;
 }
-
 .video-wrapper iframe, .video-container iframe {
     position: absolute;
     top: 0;
@@ -275,7 +261,6 @@ nav a {
     display: inline-block;
     width: 100%;
 }
-
 .gallery-title::after {
     content: '';
     display: block;
@@ -285,12 +270,7 @@ nav a {
     margin: 15px auto 0;
 }
 
-.media-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-}
-
+.media-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
 .media-item { text-align: center; }
 .media-item h3 { margin-top: 20px; font-size: 1.2rem; color: #000; }
 
@@ -299,10 +279,7 @@ nav a {
     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
 }
-
-.media-item:hover .video-container {
-    transform: translateY(-5px);
-}
+.media-item:hover .video-container { transform: translateY(-5px); }
 
 /* =========================================
    6. SUB-PAGE HERO (Resume & Contact)
@@ -318,6 +295,7 @@ nav a {
     padding-top: 80px;
     background-color: #000;
     z-index: 1;
+    overflow: hidden; /* CRITICAL: Crops the "100vh" pseudo element */
 }
 
 .sub-hero::before {
@@ -332,10 +310,7 @@ nav a {
     text-transform: uppercase;
     letter-spacing: 2px;
 }
-
-.sub-hero-content .tagline-hero {
-    color: rgba(255,255,255,0.9);
-}
+.sub-hero-content .tagline-hero { color: rgba(255,255,255,0.9); }
 
 .page-content-wrapper {
     padding-top: 80px;
@@ -345,7 +320,7 @@ nav a {
 }
 
 /* =========================================
-   7. CONTACT PAGE
+   7. CONTACT & FORM STYLES
    ========================================= */
 .contact-buttons {
     display: flex;
@@ -354,7 +329,6 @@ nav a {
     margin-bottom: 40px;
     flex-wrap: wrap;
 }
-
 .btn-social {
     display: inline-flex;
     align-items: center;
@@ -378,7 +352,6 @@ nav a {
     border-radius: 8px;
     border: 1px solid #eee; 
 }
-
 .form-group { margin-bottom: 20px; }
 .form-group label { display: block; margin-bottom: 8px; font-weight: bold; color: #333; }
 .required { color: #d93025; }
@@ -393,7 +366,6 @@ input[type="email"], input[type="text"], input[type="tel"], textarea {
     background-color: #fff;
     color: #333;
 }
-
 .btn-submit {
     display: block;
     width: 100%;
@@ -409,15 +381,9 @@ input[type="email"], input[type="text"], input[type="tel"], textarea {
 .btn-submit:hover { background-color: #333; }
 
 /* =========================================
-   8. RESUME PAGE
+   8. RESUME & UTILITIES
    ========================================= */
-.download-bar {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 0.9rem;
-    color: #888;
-}
-
+.download-bar { text-align: center; margin-bottom: 20px; font-size: 0.9rem; color: #888; }
 .download-bar a { text-decoration: underline; color: #555; }
 
 .pdf-viewer-container {
@@ -437,7 +403,6 @@ input[type="email"], input[type="text"], input[type="tel"], textarea {
     gap: 40px;
     justify-content: center;
 }
-
 .headshot-item { text-align: center; }
 .headshot-item img {
     width: 100%;
@@ -449,15 +414,11 @@ input[type="email"], input[type="text"], input[type="tel"], textarea {
 }
 .headshot-item:hover img { transform: scale(1.02); }
 
-/* =========================================
-   9. UTILITIES & FOOTER
-   ========================================= */
 .content-section {
     max-width: 900px;
     margin: 0 auto 100px auto;
     padding: 0 20px;
 }
-
 .divider {
     border: 0;
     height: 1px;
@@ -481,22 +442,21 @@ footer {
    ========================================= */
 @media (max-width: 768px) {
     
-    /* BACKGROUND FIX: Turn off fixed scroll on phones */
-    /* UPDATED: Changed position to 'center top' to prevent jumping between pages */
+    /* BACKGROUND FIX: Stops the "Jump" between pages */
     .hero-immersive::before, 
     .media-hero::before, 
     .sub-hero::before {
-        background-attachment: scroll; /* Stops zoom glitch */
-        
-        /* THIS IS THE FIX FOR THE JUMP: */
-        /* Anchors image to the top edge so it never shifts when page height changes */
+        background-attachment: scroll;
         background-position: center top; 
         
+        /* Forces background to ALWAYS calculate based on full screen height */
+        /* This prevents re-scaling when switching between short/tall pages */
+        height: 100vh; 
+        
         background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('hero.jpg');
-        background-size: cover;
     }
 
-    /* TYPOGRAPHY: Shrink massive headers */
+    /* TYPOGRAPHY */
     .hero-content h1, 
     .media-hero-content h1, 
     .sub-hero-content h1 {
@@ -504,33 +464,20 @@ footer {
         padding: 0 10px;
     }
 
-    /* NAVIGATION: Stack links vertically */
+    /* NAVIGATION */
     .immersive-header { position: relative; background: #000; }
-    .immersive-header nav li {
-        display: block;
-        margin: 10px 0;
-    }
+    .immersive-header nav li { display: block; margin: 10px 0; }
 
-    /* PROFILE: Stack image and bio */
-    .profile-container {
-        flex-direction: column;
-        padding: 30px 20px;
-        width: auto;
-    }
+    /* LAYOUT ADJUSTMENTS */
+    .profile-container { flex-direction: column; padding: 30px 20px; width: auto; }
     .headshot-placeholder img { width: 100%; max-width: 300px; margin: 0 auto; }
     .bio-text { text-align: left; font-size: 1rem; }
     .about-reveal { padding-top: 50px; }
-
-    /* MEDIA PAGE */
     .media-grid { grid-template-columns: 1fr; gap: 40px; }
-
-    /* RESUME PAGE */
     .pdf-viewer-container { height: 500px; border: 1px solid #eee; }
-    
-    /* CONTACT PAGE */
     .form-container { padding: 20px; }
     
-    /* INPUTS: Prevent iOS Zoom */
+    /* IOS FORM FIX */
     input[type="text"], input[type="email"], input[type="tel"], textarea {
         font-size: 16px; 
     }
